@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家族树 - 李氏家谱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f3e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #8b4513;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid #5d2d0c;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            background-color: #a0522d;
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #8b4513;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5d2d0c;
+            font-size: 2rem;
+            border-bottom: 2px solid #d2b48c;
+            padding-bottom: 10px;
+        }
+        
+        .family-tree {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .generation {
+            margin-bottom: 40px;
+        }
+        
+        .generation-title {
+            background-color: #d2b48c;
+            color: #5d2d0c;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .member-card {
+            background-color: #f5f5f5;
+            border: 1px solid #d2b48c;
+            border-radius: 8px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .member-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #d2b48c;
+            margin: 0 auto 10px;
+            display: block;
+            background-color: #eee;
+        }
+        
+        .member-name {
+            font-weight: bold;
+            color: #5d2d0c;
+            margin-bottom: 5px;
+        }
+        
+        .member-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .member-links {
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .member-links a {
+            color: #8b4513;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        .member-links a:hover {
+            background-color: #f0e0c0;
+            text-decoration: underline;
+        }
+        
+        .family-timeline {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-year {
+            background-color: #8b4513;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            min-width: 80px;
+            text-align: center;
+            height: fit-content;
+        }
+        
+        .timeline-content {
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 3px solid #d2b48c;
+            flex: 1;
+        }
+        
+        /* 留言板样式 */
+        .comments-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .comment-form {
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #5d2d0c;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d2b48c;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #5d2d0c;
+        }
+        
+        .comments-list {
+            margin-top: 30px;
+        }
+        
+        .comment {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-weight: bold;
+            color: #5d2d0c;
+        }
+        
+        .comment-date {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .comment-content {
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        /* 新增的图片上传相关样式 */
+        .image-upload-container {
+            margin-top: 15px;
+        }
+        
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .image-preview {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 1px dashed #d2b48c;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .upload-btn {
+            border: 1px solid #d2b48c;
+            color: #5d2d0c;
+            background-color: #f9f3e9;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background-color: #f0e0c0;
+        }
+        
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .comment-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .comment-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        
+        .comment-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 外部链接样式 */
+        .external-links {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .links-list {
+            list-style: none;
+        }
+        
+        .links-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #d2b48c;
+        }
+        
+        .links-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .links-list a {
+            color: #8b4513;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .links-list a:hover {
+            color: #5d2d0c;
+            text-decoration: underline;
+        }
+        
+        .links-list a::before {
+            content: "→";
+            margin-right: 10px;
+            color: #d2b48c;
+        }
+        
+        footer {
+            background-color: #5d2d0c;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .members {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .member-card {
+                width: 80%;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-year {
+                margin-bottom: 10px;
+                width: fit-content;
+            }
+            
+            .timeline-content {
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+                padding-top: 10px;
+                border-top: 3px solid #d2b48c;
+            }
+            
+            .comment-image {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">李氏宗族</div>
+        <p>传承家族文化 · 凝聚血脉亲情</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#family-tree">家族树</a></li>
+            <li><a href="#timeline">家族历史</a></li>
+            <li><a href="#photos">家族相册</a></li>
+            <li><a href="#activities">家族活动</a></li>
+            <li><a href="#contact">联系我们</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1 class="page-title" id="family-tree">李氏家族树</h1>
+        
+        <div class="family-tree">
+            <div class="generation">
+                <div class="generation-title">第一代 (1600-1700)</div>
+                <div class="members">
+                    <div class="member-card">
+                        <img src="placeholder.jpg" alt="李氏祖先" class="member-photo">
+                        <div class="member-name">李仑（字友恒）</div>
+                        <div class="member-info">(1683-1684)</div>
+                        <div class="member-info">家族创始人</div>
+                        <div class="member-links">
+                            <a href="#timeline-1905">查看事迹</a>
+                            <a href="genealogy.pdf" target="_blank">家谱详情</a>
+                        </div>
+                    </div>
+                    
+                    <div class="member-card">
+                        <img src="placeholder.jpg" alt="李氏祖先" class="member-photo">
+                        <div class="member-name">周妙莲氏</div>
+                        <div class="member-info">(1682-？)</div>
+                        <div class="member-info">李仑之妻</div>
+                        <div class="member-links">
+                            <a href="family-stories.html#zhoumiaolian" target="_blank">生平故事</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="generation">
+                <div class="generation-title">第二代 (1700-1800)</div>
+                <div class="members">
+                    <div class="member-card">
+                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                        <div class="member-name">李启葱 妻周氏</div>
+                        <div class="member-info">(1703-？)</div>
+                        <div class="member-info">长子</div>
+                        <div class="member-links">
+                            <a href="descendants.html#qicong" target="_blank">后代分支</a>
+                        </div>
+                    </div>
+                    
+                    <div class="member-card">
+                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                        <div class="member-name">李启芳 妻吴氏</div>
+                        <div class="member-info">(1705-？)</div>
+                        <div class="member-info">次子</div>
+                        <div class="member-links">
+                            <a href="descendants.html#qifang" target="_blank">后代分支</a>
+                        </div>
+                    </div>
+                    
+                    <div class="member-card">
+                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                        <div class="member-name">李启苞 妻余氏</div>
+                        <div class="member-info">(1710-？)</div>
+                        <div class="member-info">三子</div>
+                        <div class="member-links">
+                            <a href="descendants.html#qibao" target="_blank">后代分支</a>
+                        </div>
+                    </div>
+
+                   <div class="member-card">
+                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                        <div class="member-name">李启芃 妻刘氏、熊氏</div>
+                        <div class="member-info">(1713-？)</div>
+                        <div class="member-info">四子</div>
+                        <div class="member-links">
+                            <a href="descendants.html#qipeng" target="_blank">后代分支</a>
+                        </div>
+                    </div>
+                      
+                    <div class="member-card">
+                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                        <div class="member-name">李启蓉 妻王氏</div>
+                        <div class="member-info">(1727-？)</div>
+                        <div class="member-info">五子</div>
+                        <div class="member-links">
+                            <a href="descendants.html#qirong" target="_blank">后代分支</a>
+                        </div>
+                    </div>
+                </div>
+            </div>                      
+        
+        <h1 class="page-title" id="timeline">家族大事记</h1>
+        
+        <div class="family-timeline">
+            <div class="timeline-item" id="timeline-1721">
+                <div class="timeline-year">1721年</div>
+                <div class="timeline-content">
+                    <h3>家族起源</h3>
+                    <p>先祖居福建省（今福建省龙岩市长汀县羊牯乡余家地村）， 友恒公，自康熙（癸卯）六十年（1721年）， 公年三十八携子并媳从闽省而来西蜀，过都越国跋涉山川逾越险阻不知几经日月而始至上南道嘉定府（今乐山）荣县下里荣川乡地名张家桥大屋嘴居住</p>
+                    <p><a href="migration-map.html" target="_blank">查看迁徙路线图</a> | <a href="original-hometown.html" target="_blank">福建祖籍地介绍</a></p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1721年</div>
+                <div class="timeline-content">
+                    <h3>家族扩建</h3>
+                    <p>友恒公共置田业陆处：初置张家桥大屋嘴田业一处，价银八十两；次置野鸡冲田业一处；三置张河溪大山地名石岩冲田业一处；四置黑虎寨田业一处；五置黄桷林田业一处；六置威邑地名斗笠湾田业一处。不数十年创业家道丰厚，买股店置六间五房各分得田业一股，店口一间。威邑斗笠湾田业一股提做公项。俟后五房子孙甚众，于乾隆五十九（1794年）年又将公堂剖分五股各管其业。将程家场（今成佳镇）三泰栈店口一间提做蒸尝以为祭祀之用，为嗣孙者当（记）公之克勤克俭创业艰难，世世子孙宜永守而勿替也，今成佳镇祠堂已拆迁。</p>
+                    <p><a href="property-map.html" target="_blank">查看产业分布图</a> | <a href="old-photos.html#ancestral-hall" target="_blank">祠堂老照片</a></p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1949年</div>
+                <div class="timeline-content">
+                    <h3>家族聚会</h3>
+                    <p>解放前每年清明会在成佳镇及艾叶小祠堂均由清明会，近年族内兄弟清明常有小聚。</p>
+                    <p><a href="gathering-photos.html" target="_blank">查看聚会照片</a> | <a href="gathering-schedule.html" target="_blank">近期聚会安排</a></p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">2025年</div>
+                <div class="timeline-content">
+                    <h3>百年庆典</h3>
+                    <p>庆祝家族定居现居地300余年，收集编纂了第一部家谱。</p>
+                    <p><a href="genealogy-book.html" target="_blank">家谱电子版</a> | <a href="celebration-video.html" target="_blank">庆典视频</a></p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">2025年</div>
+                <div class="timeline-content">
+                    <h3>家族网站建立</h3>
+                    <p>建立家族网站，方便各地族人联系和交流。</p>
+                    <p><a href="website-history.html" target="_blank">网站发展历程</a> | <a href="contribute.html" target="_blank">参与网站建设</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 外部链接部分 -->
+        <div class="external-links">
+            <h2 class="page-title">相关资源</h2>
+            <ul class="links-list">                
+                <li><a href="https://www.zupu.cn/">中国家谱网</a></li>
+                <li><a href="https://www.zupu.cn/zp/li_fujian/list_5.html">福建省官方网站</a></li>       
+                </ul>
+        </div>
+        
+        <!-- 留言板部分 -->
+        <div class="comments-section" id="contact">
+            <h2 class="page-title">家族留言板</h2>
+            
+            <div class="comment-form">
+                <h3>留下您的留言</h3>
+                <form id="commentForm">
+                    <div class="form-group">
+                        <label for="name">姓名：</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">邮箱：</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="member">关联家族成员（可选）：</label>
+                        <input type="text" id="member" name="member" list="membersList">
+                        <datalist id="membersList">
+                            <option value="李启葱">
+                            <option value="李启芳">
+                            <option value="李启苞">
+                            <option value="李启芃">
+                            <option value="李启蓉">
+                        </datalist>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comment">留言内容：</label>
+                        <textarea id="comment" name="comment" required></textarea>
+                    </div>
+                    
+                    <!-- 新增的图片上传部分 -->
+                    <div class="form-group image-upload-container">
+                        <label>上传图片（最多4张）：</label>
+                        <div class="upload-btn-wrapper">
+                            <button class="upload-btn">选择图片</button>
+                            <input type="file" id="imageUpload" name="images[]" accept="image/*" multiple>
+                        </div>
+                        <div class="image-preview-container" id="imagePreviewContainer"></div>
+                        <small>支持JPG、PNG格式，每张图片不超过5MB</small>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">提交留言</button>
+                </form>
+            </div>
+            
+            <div class="comments-list">
+                <h3>家族留言</h3>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">李*明</span>
+                        <span class="comment-date">2025年3月15日</span>
+                    </div>
+                    <div class="comment-content">
+                        大家好！我是李启芃的后代，目前在成都工作。很高兴通过这个网站找到家族根源。如果有同支系的族人，欢迎联系我交流！
+                    </div>
+                    <div class="comment-images">
+                        <div class="comment-image">
+                            <img src="sample-family-photo1.jpg" alt="家族照片">
+                        </div>
+                        <div class="comment-image">
+                            <img src="sample-family-photo2.jpg" alt="家族照片">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">李*芳</span>
+                        <span class="comment-date">2025年2月28日</span>
+                    </div>
+                    <div class="comment-content">
+                        关于家族起源部分，我手头有一些福建老家的资料，如果需要补充可以联系我。另外建议可以建立一个家族微信群方便交流。
+                    </div>
+                    <div class="comment-images">
+                        <div class="comment-image">
+                            <img src="sample-old-photo.jpg" alt="老照片">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">李*强</span>
+                        <span class="comment-date">2025年1月10日</span>
+                    </div>
+                    <div class="comment-content">
+                        网站做得很好！我有一个建议：能否增加一个家族成员通讯录功能（可选公开），方便族人之间联系？另外，我这里有2005年家谱编撰时的一些原始资料，可以提供给网站管理员。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 李氏家族. 保留所有权利.</p>
+        <p>联系我们: <a href="mailto:284168370@qq.com" style="color: #d2b48c;">284168370@qq.com</a></p>
+        <p>家族微信群：扫描二维码加入 <img src="wechat-qr.png" alt="微信群二维码" style="height: 80px; vertical-align: middle; margin-left: 10px;"></p>
+    </footer>
+    
+    <script>
+        // 图片上传预览功能
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const previewContainer = document.getElementById('imagePreviewContainer');
+            previewContainer.innerHTML = '';
+            
+            const files = e.target.files;
+            const maxFiles = 4;
+            
+            if (files.length > maxFiles) {
+                alert(`最多只能上传${maxFiles}张图片`);
+                this.value = '';
+                return;
+            }
+            
+            for (let i = 0; i < Math.min(files.length, maxFiles); i++) {
+                const file = files[i];
+                
+                // 检查文件类型
+                if (!file.type.match('image.*')) {
+                    alert('只能上传图片文件');
+                    this.value = '';
+                    previewContainer.innerHTML = '';
+                    return;
+                }
+                
+                // 检查文件大小 (5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过5MB');
+                    this.value = '';
+                    previewContainer.innerHTML = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'image-preview';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-image';
+                    removeBtn.innerHTML = '×';
+                    removeBtn.onclick = function() {
+                        previewDiv.remove();
+                        // 这里需要从文件列表中移除对应的文件
+                        // 实际项目中可能需要更复杂的处理
+                    };
+                    
+                    previewDiv.appendChild(img);
+                    previewDiv.appendChild(removeBtn);
+                    previewContainer.appendChild(previewDiv);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // 简单的表单提交处理
+        document.getElementById('commentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const member = document.getElementById('member').value;
+            const comment = document.getElementById('comment').value;
+            
+            // 创建新的留言元素
+            const commentsList = document.querySelector('.comments-list');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment';
+            
+            // 设置日期
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
+            
+            // 构建留言内容
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author">${name}</span>
+                    <span class="comment-date">${dateStr}</span>
+                </div>
+                <div class="comment-content">
+                    ${comment} ${member ? `<br><small>关联成员: ${member}</small>` : ''}
+                </div>
+            `;
+            
+            // 处理图片预览
+            const previews = document.querySelectorAll('.image-preview');
+            if (previews.length > 0) {
+                const imagesContainer = document.createElement('div');
+                imagesContainer.className = 'comment-images';
+                
+                previews.forEach(preview => {
+                    const imgSrc = preview.querySelector('img').src;
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'comment-image';
+                    imageDiv.innerHTML = `<img src="${imgSrc}" alt="用户上传图片">`;
+                    imagesContainer.appendChild(imageDiv);
+                });
+                
+                newComment.appendChild(imagesContainer);
+            }
+            
+            // 添加到留言列表顶部
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+            
+            // 清空表单
+            this.reset();
+            document.getElementById('imagePreviewContainer').innerHTML = '';
+            
+            // 显示成功消息
+            alert('留言已提交，感谢您的参与！');
+        });
+    </script>
+</body>
+</html>
