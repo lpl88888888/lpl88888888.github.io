@@ -94,8 +94,42 @@
             border-radius: 5px;
             margin-bottom: 20px;
             font-weight: bold;
+            padding-bottom: 20px; /* 增加下边距 */
+            margin-bottom: 15px;
+            position: relative;
         }
         
+         /* 第一代特定样式 */
+.first-generation .member-card::before {
+  content: "始祖";
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #5d2d0c;
+  z-index: 2;
+}
+
+/* 第二代特定样式 */
+.second-generation .member-card::before {
+  content: "二世祖";
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #5d2d0c;
+  z-index: 2;
+}
+
+/* 周妙莲氏特殊标签 */
+.member-card[data-role="spouse"]::before {
+  content: "始祖母";
+}
+
         .members {
             display: flex;
             flex-wrap: wrap;
@@ -107,11 +141,12 @@
             background-color: #f5f5f5;
             border: 1px solid #d2b48c;
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px  15px;
             width: 200px;
             text-align: center;
             transition: transform 0.3s;
             position: relative;
+            min-height: 320px; /* 设置最小高度 */
         }
         
         .member-card:hover {
@@ -134,13 +169,30 @@
             font-weight: bold;
             color: #5d2d0c;
             margin-bottom: 5px;
+            margin: 15px 0 8px; /* 上15px 下8px */
+  font-size: 1.1em;
         }
         
         .member-info {
             font-size: 0.9rem;
             color: #666;
+ margin: 5px 0;
+  line-height: 1.4;
         }
         
+      /* 链接按钮样式 */
+.member-links a {
+  display: inline-block;
+  margin: 5px;
+  padding: 3px 8px;
+  background-color: #f0e0c0;
+}
+
+       /* 调整身份描述行 */
+.member-info:last-of-type {
+  margin-bottom: 15px;
+}
+
         .member-links {
             margin-top: 10px;
             font-size: 0.8rem;
@@ -545,12 +597,12 @@
         <h1 class="page-title" id="family-tree">李氏家族谱系树</h1>
         
         <div class="family-tree">
-            <div class="generation">
-                <div class="generation-title">第一代 (1600-1700)</div>
-                <div class="members">
-                    <div class="member-card">
-                        <img src="placeholder.jpg" alt="李氏祖先" class="member-photo">
-                        <div class="member-name">李仑（字友恒）</div>
+            <div class="generation first-generation">
+  <div class="generation-title">第一代 (1600-1700)</div>
+  <div class="members">
+    <div class="member-card">
+      <img src="placeholder.jpg" alt="画像" class="member-photo">
+      <div class="member-name">李仑（字友恒）</div>
                         <div class="member-info">(1683/1684--)</div>
                         <div class="member-info">家族创始人</div>
                         <div class="member-links">
@@ -559,9 +611,9 @@
                         </div>
                     </div>
                     
-                    <div class="member-card">
-                        <img src="placeholder.jpg" alt="李氏祖先" class="member-photo">
-                        <div class="member-name">周妙莲氏</div>
+                     <div class="member-card" data-role="spouse">
+      <img src="placeholder.jpg" alt="画像" class="member-photo">
+      <div class="member-name">周妙莲氏</div>
                         <div class="member-info">(1682--)</div>
                         <div class="member-info">李仑之妻</div>
                         <div class="member-links">
@@ -572,54 +624,54 @@
             </div>
             
             <!-- 修改第二代成员卡片部分 -->
-    <div class="generation">
-        <div class="generation-title">第二代 (1700-1800)</div>
-        <div class="members">
-            <div class="member-card">
-                <img src="placeholder.jpg" alt="二世祖" class="member-photo">
-                <div class="member-name">李启葱 妻周氏</div>
+  <div class="generation second-generation">
+  <div class="generation-title">第二代 (1700-1800)</div>
+  <div class="members">
+    <div class="member-card">
+      <img src="placeholder.jpg" alt="画像" class="member-photo">
+      <div class="member-name">李启葱 妻周氏</div>
                 <div class="member-info">(1703--)</div>
-                <div class="member-info">长子</div>
+                <div class="member-info">长房</div>
                 <div class="member-links">
                     <a href="#deeds-qicong">生平故事</a>
                 </div>
             </div>
                     
                      <div class="member-card">
-                <img src="placeholder.jpg" alt="二世祖" class="member-photo">
+                <img src="placeholder.jpg" alt="画像" class="member-photo">
                 <div class="member-name">李启芳 妻吴氏</div>
                 <div class="member-info">(1705--)</div>
-                <div class="member-info">次子</div>
+                <div class="member-info">二房</div>
                 <div class="member-links">
                     <a href="#deeds-qifang">生平故事</a>
                 </div>
             </div>
             
             <div class="member-card">
-                <img src="placeholder.jpg" alt="二世祖" class="member-photo">
+                <img src="placeholder.jpg" alt="画像" class="member-photo">
                 <div class="member-name">李启苞 妻余氏</div>
                 <div class="member-info">(1710--)</div>
-                <div class="member-info">三子</div>
+                <div class="member-info">三房</div>
                 <div class="member-links">
                     <a href="#deeds-qibao">生平故事</a>
                 </div>
             </div>
 
             <div class="member-card">
-                <img src="placeholder.jpg" alt="二世祖" class="member-photo">
+                <img src="placeholder.jpg" alt="画像" class="member-photo">
                 <div class="member-name">李启芃 妻刘氏、熊氏</div>
                 <div class="member-info">(1713--)</div>
-                <div class="member-info">四子</div>
+                <div class="member-info">四房</div>
                 <div class="member-links">
                     <a href="#deeds-qipeng">生平故事</a>
                 </div>
             </div>
               
             <div class="member-card">
-                <img src="placeholder.jpg" alt="二世祖" class="member-photo">
+                <img src="placeholder.jpg" alt="画像" class="member-photo">
                 <div class="member-name">李启蓉 妻王氏</div>
                 <div class="member-info">(1727--)</div>
-                <div class="member-info">五子</div>
+                <div class="member-info">五房</div>
                 <div class="member-links">
                     <a href="#deeds-qirong">生平故事</a>
                         </div>
@@ -637,7 +689,7 @@
                     <p>族谱释义：民间形成族谱时间一般在宋以后，且古人文化及资讯有限，早期的族谱受各种影响，部分所记载先祖失考，准确性待查，各位族人可通过网络学习有关族谱文化知识  <p>
                     <p>1、火德公谱/木德公谱--万一郎--千三郎--念三郎-三二郎：以上五祖皆居福建本境自後宗支各移於江西粤東、湖广、四川：惟有我念一郎不知何祖發派於宋朝时自江西省石頭縣地名赤崗頭選居在福建省汀洲府宁化縣石壁地名李家村盖上代未錄以詩後之賢者訪修焉：<p>
                      <p>2、念一郎--二十九郎--三十八郎--五世郎--李大郎--五十三郎--以上六代祖世遠人遥路途險阻以至鮮祭 有李百五郎坟顶之穴葬的范氏四娘详察其由母子骨月方得旁葬须至序者有百五郎又移于来苏下都下坝今特书为；<p>
-                     <p> 3、福建宗亲调查我们的族谱后给的一些回复资料：一、自贡谱第六页记载：“以上五祖皆居福建本境，自后宗支移居江西、粤东、湖广。四川惟有我念一郎不知何祖发派”。上杭1539年、1592年1816年三次编的《李氏族谱》记载：念一郎是李木德长子，上杭开基始祖。火德是念一郎的叔辈（火德原配伍氏未育，继配陈氏生三子：三十一郎、三十二郎、三十三郎）。
+                   <p> 3、 福建宗亲调查我们的族谱后给的一些回复资料：一、自贡谱第六页记载：“以上五祖皆居福建本境，自后宗支移居江西、粤东、湖广。四川惟有我念一郎不知何祖发派”。上杭1539年、1592年1816年三次编的《李氏族谱》记载：念一郎是李木德长子，上杭开基始祖。火德是念一郎的叔辈（火德原配伍氏未育，继配陈氏生三子：三十一郎、三十二郎、三十三郎）。
 二、自贡谱第七页记载:“有百五郎葬庐丰马鞍山上，坟顶之穴葬的范四娘，详察其母子，方得旁葬”。上杭《李氏族谱》未记载有百五郎。按自贡谱记载，百五郎是五十三郎之妣范四娘所生。分析推理可能是五十三郎三子六十七郎和四子六十八郎其中一个，改名为百五郎。
 三、自贡谱第七页记载：“有百五郎支移于来苏下都下坝，今特书为一世祖，妣何氏生二子：千四郎分居上坝，李千七郎妣刘氏六娘，分居下坝”。经查原来苏里辖管上都、中都、下都、洪山、峰市五个乡。这五个乡都没有叫下坝的村庄。而在峰市相邻的永定县仙师镇池溪有上、中、下三坝，此村恰有李姓居住。如此看来，百五郎有可能移居在池溪下坝，所生二子分居在池溪上坝和下坝。
 四、自贡谱第九页记载：“七世祖廷先迁徙长汀宣城里十五都塘坑村”。此地解放后，由于行政区域变更，十五都改为长汀县羊牯乡，塘坑是羊牯乡所辖的一个村，原居住有李、赖二姓。李姓建有祖祠，李姓迁居四川时，把祖祠托付给姻亲赖姓代管。祖祠已倒毁，外大门楼至今尚存。
