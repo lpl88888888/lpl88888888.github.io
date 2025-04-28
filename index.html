@@ -416,6 +416,56 @@
             color: #d2b48c;
         }
         
+        /* =========== 新增的模态框样式 =========== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background-color: #f9f3e9;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #8b4513;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .close {
+            color: #8b4513;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #5d2d0c;
+        }
+        
+        .deeds-images {
+            margin-top: 20px;
+        }
+        
+        .deeds-images img {
+            max-width: 100%;
+            border: 1px solid #d2b48c;
+            border-radius: 4px;
+        }
+        /* =========== 模态框样式结束 =========== */
+        
         footer {
             background-color: #5d2d0c;
             color: #fff;
@@ -464,6 +514,13 @@
                 width: 100%;
                 height: auto;
             }
+            
+            /* 响应式模态框 */
+            .modal-content {
+                margin: 20% auto;
+                width: 90%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -497,8 +554,8 @@
                         <div class="member-info">(1683-1684)</div>
                         <div class="member-info">家族创始人</div>
                         <div class="member-links">
-                            <a href="#timeline-1905">查看事迹</a>
-                            <a href="genealogy.pdf" target="_blank">家谱详情</a>
+                            <a href="#deeds-lilun">查看事迹</a>
+                            <a href="genealogy.pdf" target="_blank">家谱详情</a> 
                         </div>
                     </div>
                     
@@ -508,62 +565,63 @@
                         <div class="member-info">(1682-？)</div>
                         <div class="member-info">李仑之妻</div>
                         <div class="member-links">
-                            <a href="family-stories.html#zhoumiaolian" target="_blank">生平故事</a>
+                            <a href="#deeds-zhoumiaolian">生平故事</a>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="generation">
-                <div class="generation-title">第二代 (1700-1800)</div>
-                <div class="members">
-                    <div class="member-card">
-                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
-                        <div class="member-name">李启葱 妻周氏</div>
-                        <div class="member-info">(1703-？)</div>
-                        <div class="member-info">长子</div>
-                        <div class="member-links">
-                            <a href="descendants.html#qicong" target="_blank">后代分支</a>
-                        </div>
-                    </div>
+            <!-- 修改第二代成员卡片部分 -->
+    <div class="generation">
+        <div class="generation-title">第二代 (1700-1800)</div>
+        <div class="members">
+            <div class="member-card">
+                <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                <div class="member-name">李启葱 妻周氏</div>
+                <div class="member-info">(1703-？)</div>
+                <div class="member-info">长子</div>
+                <div class="member-links">
+                    <a href="#deeds-qicong">生平故事</a>
+                </div>
+            </div>
                     
-                    <div class="member-card">
-                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
-                        <div class="member-name">李启芳 妻吴氏</div>
-                        <div class="member-info">(1705-？)</div>
-                        <div class="member-info">次子</div>
-                        <div class="member-links">
-                            <a href="descendants.html#qifang" target="_blank">后代分支</a>
-                        </div>
-                    </div>
-                    
-                    <div class="member-card">
-                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
-                        <div class="member-name">李启苞 妻余氏</div>
-                        <div class="member-info">(1710-？)</div>
-                        <div class="member-info">三子</div>
-                        <div class="member-links">
-                            <a href="descendants.html#qibao" target="_blank">后代分支</a>
-                        </div>
-                    </div>
+                     <div class="member-card">
+                <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                <div class="member-name">李启芳 妻吴氏</div>
+                <div class="member-info">(1705-？)</div>
+                <div class="member-info">次子</div>
+                <div class="member-links">
+                    <a href="#deeds-qifang">生平故事</a>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                <div class="member-name">李启苞 妻余氏</div>
+                <div class="member-info">(1710-？)</div>
+                <div class="member-info">三子</div>
+                <div class="member-links">
+                    <a href="#deeds-qibao">生平故事</a>
+                </div>
+            </div>
 
-                   <div class="member-card">
-                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
-                        <div class="member-name">李启芃 妻刘氏、熊氏</div>
-                        <div class="member-info">(1713-？)</div>
-                        <div class="member-info">四子</div>
-                        <div class="member-links">
-                            <a href="descendants.html#qipeng" target="_blank">后代分支</a>
-                        </div>
-                    </div>
-                      
-                    <div class="member-card">
-                        <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
-                        <div class="member-name">李启蓉 妻王氏</div>
-                        <div class="member-info">(1727-？)</div>
-                        <div class="member-info">五子</div>
-                        <div class="member-links">
-                            <a href="descendants.html#qirong" target="_blank">后代分支</a>
+            <div class="member-card">
+                <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                <div class="member-name">李启芃 妻刘氏、熊氏</div>
+                <div class="member-info">(1713-？)</div>
+                <div class="member-info">四子</div>
+                <div class="member-links">
+                    <a href="#deeds-qipeng">生平故事</a>
+                </div>
+            </div>
+              
+            <div class="member-card">
+                <img src="placeholder.jpg" alt="第二代成员" class="member-photo">
+                <div class="member-name">李启蓉 妻王氏</div>
+                <div class="member-info">(1727-？)</div>
+                <div class="member-info">五子</div>
+                <div class="member-links">
+                    <a href="#deeds-qirong">生平故事</a>
                         </div>
                     </div>
                 </div>
@@ -630,6 +688,10 @@
         <!-- 留言板部分 -->
         <div class="comments-section" id="contact">
             <h2 class="page-title">家族留言板</h2>
+    <p style="text-align: center; margin-bottom: 20px; color: #666;">
+        注意：留言将保存在浏览器本地存储中，清空浏览器缓存后留言将消失。<br>
+        如需长期保存重要信息，请同时通过邮件发送至管理员284168370@qq.com。
+    </p>
             
             <div class="comment-form">
                 <h3>留下您的留言</h3>
@@ -725,6 +787,18 @@
         </div>
     </div>
     
+    <!-- =========== 新增的事迹模态框 =========== -->
+    <div id="deedsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">李仑（字友恒）事迹</h2>
+            <div id="modalContent">
+                <!-- 事迹内容将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+    <!-- =========== 模态框结束 =========== -->
+    
     <footer>
         <p>© 2025 李氏家族. 保留所有权利.</p>
         <p>联系我们: <a href="mailto:284168370@qq.com" style="color: #d2b48c;">284168370@qq.com</a></p>
@@ -732,6 +806,7 @@
     </footer>
     
     <script>
+
         // 图片上传预览功能
         document.getElementById('imageUpload').addEventListener('change', function(e) {
             const previewContainer = document.getElementById('imagePreviewContainer');
@@ -790,63 +865,191 @@
             }
         });
         
-        // 简单的表单提交处理
-        document.getElementById('commentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // 页面加载时从本地存储获取留言
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedComments = localStorage.getItem('familyComments');
+        if (savedComments) {
+            document.querySelector('.comments-list').innerHTML = savedComments;
+        }
+    });
+
+        // 修改表单提交处理函数，添加本地存储
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 获取表单数据
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const member = document.getElementById('member').value;
+        const comment = document.getElementById('comment').value;
+        
+        // 创建新的留言元素
+        const commentsList = document.querySelector('.comments-list');
+        const newComment = document.createElement('div');
+        newComment.className = 'comment';
+        
+        // 设置日期
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
+        
+        // 构建留言内容
+        newComment.innerHTML = `
+            <div class="comment-header">
+                <span class="comment-author">${name}</span>
+                <span class="comment-date">${dateStr}</span>
+            </div>
+            <div class="comment-content">
+                ${comment} ${member ? `<br><small>关联成员: ${member}</small>` : ''}
+            </div>
+        `;
+        
+        // 处理图片预览
+        const previews = document.querySelectorAll('.image-preview');
+        if (previews.length > 0) {
+            const imagesContainer = document.createElement('div');
+            imagesContainer.className = 'comment-images';
             
-            // 获取表单数据
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const member = document.getElementById('member').value;
-            const comment = document.getElementById('comment').value;
+            previews.forEach(preview => {
+                const imgSrc = preview.querySelector('img').src;
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'comment-image';
+                imageDiv.innerHTML = `<img src="${imgSrc}" alt="用户上传图片">`;
+                imagesContainer.appendChild(imageDiv);
+            });
             
-            // 创建新的留言元素
-            const commentsList = document.querySelector('.comments-list');
-            const newComment = document.createElement('div');
-            newComment.className = 'comment';
-            
-            // 设置日期
-            const now = new Date();
-            const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
-            
-            // 构建留言内容
-            newComment.innerHTML = `
-                <div class="comment-header">
-                    <span class="comment-author">${name}</span>
-                    <span class="comment-date">${dateStr}</span>
-                </div>
-                <div class="comment-content">
-                    ${comment} ${member ? `<br><small>关联成员: ${member}</small>` : ''}
-                </div>
-            `;
-            
-            // 处理图片预览
-            const previews = document.querySelectorAll('.image-preview');
-            if (previews.length > 0) {
-                const imagesContainer = document.createElement('div');
-                imagesContainer.className = 'comment-images';
-                
-                previews.forEach(preview => {
-                    const imgSrc = preview.querySelector('img').src;
-                    const imageDiv = document.createElement('div');
-                    imageDiv.className = 'comment-image';
-                    imageDiv.innerHTML = `<img src="${imgSrc}" alt="用户上传图片">`;
-                    imagesContainer.appendChild(imageDiv);
-                });
-                
-                newComment.appendChild(imagesContainer);
+            newComment.appendChild(imagesContainer);
+        }
+        
+        // 添加到留言列表顶部
+        commentsList.insertBefore(newComment, commentsList.firstChild);
+        
+        // 保存到本地存储
+        localStorage.setItem('familyComments', commentsList.innerHTML);
+        
+        // 清空表单
+        this.reset();
+        document.getElementById('imagePreviewContainer').innerHTML = '';
+        
+        // 显示成功消息
+        alert('留言已提交，将保存在本地浏览器中！');
+    });
+        
+        // =========== 新增的事迹模态框功能 ===========
+        // 事迹数据 - 可以扩展为更多成员
+        const deedsData = {
+            "lilun": {
+                title: "李仑（字友恒）事迹",
+                content: `
+                    <p><strong>生卒：</strong>1683-1684</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 康熙六十年(1721年)，时年38岁，携子并媳从福建省龙岩市长汀县羊牯乡余家地村迁徙至四川</p>
+                    <p>2. 初居上南道嘉定府荣县下里荣川乡张家桥大屋嘴</p>
+                    <p>3. 共置田业六处，为家族奠定经济基础</p>
+                    <p>4. 家族创始人，被尊为李氏家族第一代祖先</p>
+                    <p><strong>历史评价：</strong></p>
+                    <p>"公之克勤克俭创业艰难，世世子孙宜永守而勿替也" - 家谱记载</p>
+                    <div class="deeds-images">
+                        <img src="migration-map.jpg" alt="迁徙路线图">
+                    </div>
+                `
+            },
+            "zhoumiaolian": {
+                title: "周妙莲氏事迹",
+                content: `
+                    <p><strong>生卒：</strong>1682-？</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 李仑之妻，随夫从福建迁徙至四川</p>
+                    <p>2. 抚育五子，家族繁衍的重要奠基人</p>
+                    <p>3. 协助管理家族产业，支持丈夫创业</p>
+                    <p><strong>家族贡献：</strong></p>
+                    <p>作为家族第一代女主人，在艰苦的迁徙过程中维持家庭，培养后代，为李氏家族在四川的扎根发展做出了不可磨灭的贡献。</p>
+                `
+            },
+                  // =========== 新增的第二代成员事迹框架 ===========
+            "qicong": {
+                title: "李启葱 生平故事",
+                content: `
+                    <p><strong>生卒：</strong>1703-？</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 在此添加第一条事迹</p>
+                    <p>2. 在此添加第二条事迹</p>
+                    <p>3. 在此添加第三条事迹</p>
+                `
+            },
+            "qifang": {
+                title: "李启芳 生平故事",
+                content: `
+                    <p><strong>生卒：</strong>1705-？</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 在此添加第一条事迹</p>
+                    <p>2. 在此添加第二条事迹</p>
+                    <p>3. 在此添加第三条事迹</p>
+                `
+            },
+            "qibao": {
+                title: "李启苞 生平故事",
+                content: `
+                    <p><strong>生卒：</strong>1710-？</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 在此添加第一条事迹</p>
+                    <p>2. 在此添加第二条事迹</p>
+                    <p>3. 在此添加第三条事迹</p>
+                `
+            },
+            "qipeng": {
+                title: "李启芃 生平故事",
+                content: `
+                    <p><strong>生卒：</strong>1713-？</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 在此添加第一条事迹</p>
+                    <p>2. 在此添加第二条事迹</p>
+                    <p>3. 在此添加第三条事迹</p>
+                `
+            },
+            "qirong": {
+                title: "李启蓉 生平故事",
+                content: `
+                    <p><strong>生卒：</strong>1727-？</p>
+                    <p><strong>主要事迹：</strong></p>
+                    <p>1. 在此添加第一条事迹</p>
+                    <p>2. 在此添加第二条事迹</p>
+                    <p>3. 在此添加第三条事迹</p>
+                `
             }
-            
-            // 添加到留言列表顶部
-            commentsList.insertBefore(newComment, commentsList.firstChild);
-            
-            // 清空表单
-            this.reset();
-            document.getElementById('imagePreviewContainer').innerHTML = '';
-            
-            // 显示成功消息
-            alert('留言已提交，感谢您的参与！');
+          };
+
+        // 获取模态框元素
+        const modal = document.getElementById("deedsModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalContent = document.getElementById("modalContent");
+        const closeBtn = document.querySelector(".close");
+
+        // 点击关闭按钮
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 为所有"查看事迹"链接添加点击事件
+        document.querySelectorAll('a[href^="#deeds-"]').forEach(link => {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                const memberId = this.getAttribute("href").replace("#deeds-", "");
+                
+                if (deedsData[memberId]) {
+                    modalTitle.textContent = deedsData[memberId].title;
+                    modalContent.innerHTML = deedsData[memberId].content;
+                    modal.style.display = "block";
+                }
+            });
         });
+        // =========== 事迹模态框功能结束 ===========
     </script>
 </body>
 </html>
